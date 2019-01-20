@@ -14,7 +14,7 @@ const App = () => (
       email: Yup.string().required('Email is required!').email('Invalid email address!'),
     })}
   >
-    {({ handleChange, touched, handleBlur, errors, handleSubmit, values }) => (
+    {({ handleChange, touched, handleBlur, errors, handleSubmit, isValid, values }) => (
       <View style={styles.container}>
           <Form.TextField
             label="Name"
@@ -34,7 +34,7 @@ const App = () => (
             autoCapitalize="none"
             error={errors.email && touched.email ? errors.email : undefined }
           ></Form.TextField>
-          <Button title="Login" onPress={handleSubmit} />
+          <Button disabled={!isValid} title="Submit" onPress={handleSubmit} />
         </View>
       )
     }
