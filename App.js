@@ -11,7 +11,7 @@ const App = () => (
     onSubmit={values => console.log(values)}
     validationSchema={Yup.object().shape({
       name: Yup.string().required('Name is required!'),
-      email: Yup.string().required('Email is required!').email('Invalid Email address!'),
+      email: Yup.string().required('Email is required!').email('Invalid email address!'),
     })}
   >
     {({ handleChange, touched, handleBlur, errors, handleSubmit, values }) => (
@@ -25,7 +25,7 @@ const App = () => (
             error={errors.name && touched.name ? errors.name : undefined }
           ></Form.TextField>
           <Form.TextField
-            label="E-Mail"
+            label="Email"
             onChangeText={handleChange('email')}
             onBlur={handleBlur('email')}
             value={values.email}
