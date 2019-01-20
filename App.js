@@ -1,31 +1,47 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View, Button } from 'react-native';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
 import Form from './components/ui/Form';
 
-export default class App extends React.Component {
-  render() {
-    return (
+const App = () => (
+  <Formik 
+    initialValues={{ name: '', email: '' }} 
+    onSubmit={values => console.log(values)}
+    validationSchema={Yup.object().shape({
+      name: Yup.string().required('Name is required!'),
+      email: Yup.string().required('Email is required!').email('Invalid Email address!'),
+    })}
+  >
+    {({ handleChange, touched, handleBlur, errors, handleSubmit, values }) => (
       <View style={styles.container}>
-        <Form.TextField
-          label="Name"
-          onChangeText={(text) => console.log(text)}
-          // success={true}
-          error={"Name is required."}
-        ></Form.TextField>
-        <Form.TextField
-          label="E-Mail"
-          onChangeText={(text) => console.log(text)}
-          success={true}
-        ></Form.TextField>
-        <Form.TextField
-          label="Password"
-          onChangeText={(text) => console.log(text)}
-        ></Form.TextField>
-      </View>
-    );
-  }
-}
+          <Form.TextField
+            label="Name"
+            onChangeText={handleChange('name')}
+            onBlur={handleBlur('name')}
+            value={values.name}
+            success={!errors.name && touched.name}
+            error={errors.name && touched.name ? errors.name : undefined }
+          ></Form.TextField>
+          <Form.TextField
+            label="E-Mail"
+            onChangeText={handleChange('email')}
+            onBlur={handleBlur('email')}
+            value={values.email}
+            success={!errors.email && touched.email}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            error={errors.email && touched.email ? errors.email : undefined }
+          ></Form.TextField>
+          <Button title="Login" onPress={handleSubmit} />
+        </View>
+      )
+    }
+  </Formik>
+);
+
+export default App;
 
 const styles = StyleSheet.create({
   container: {

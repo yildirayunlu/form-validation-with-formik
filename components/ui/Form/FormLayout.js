@@ -18,7 +18,7 @@ const FormLayout = (props) => {
 const styles = StyleSheet.create({
   container: {
     paddingTop: 20,
-    paddingBottom: 10,
+    paddingBottom: 8,
   },
   label: {
     position: 'absolute',
